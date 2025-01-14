@@ -1,6 +1,7 @@
 <?php
 // Register Custom Post Type for K9 submissions.
-function k9_register_cpt() {
+function k9_register_cpt()
+{
     $labels = [
         'name' => 'K9 Submissions',
         'singular_name' => 'K9 Submission',
@@ -29,7 +30,8 @@ function k9_register_cpt() {
 add_action('init', 'k9_register_cpt');
 
 // Add custom meta box for K9 Submissions.
-function k9_add_meta_boxes() {
+function k9_add_meta_boxes()
+{
     add_meta_box(
         'k9_meta_box',                // Meta box ID
         'Custom Fields',              // Meta box title
@@ -42,7 +44,8 @@ function k9_add_meta_boxes() {
 add_action('add_meta_boxes', 'k9_add_meta_boxes');
 
 // Render the meta box.
-function k9_render_meta_box($post) {
+function k9_render_meta_box($post)
+{
     // Get existing meta values if they exist.
     $k9_owner_meta_field = get_post_meta($post->ID, 'k9_owner', true);
     $k9_department_agency_meta_field = get_post_meta($post->ID, 'k9_department_agency', true);
@@ -51,15 +54,18 @@ function k9_render_meta_box($post) {
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
     ?>
     <label for="k9_owner">Full Name</label>
-    <input type="text" id="k9_owner" name="k9_owner" value="<?php echo esc_attr($k9_owner_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+    <input type="text" id="k9_owner" name="k9_owner" value="<?php echo esc_attr($k9_owner_meta_field); ?>"
+        style="width: 100%; margin-bottom: 10px;" />
 
     <label for="k9_department_agency">K9 Handler Department or Agency:</label>
-    <input type="text" id="k9_department_agency" name="k9_department_agency" value="<?php echo esc_attr($k9_department_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+    <input type="text" id="k9_department_agency" name="k9_department_agency"
+        value="<?php echo esc_attr($k9_department_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
     <?php
 }
 
 // Save the custom meta fields.
-function k9_save_meta_box($post_id) {
+function k9_save_meta_box($post_id)
+{
     // Check if nonce is set and valid.
     if (!isset($_POST['k9_meta_box_nonce']) || !wp_verify_nonce($_POST['k9_meta_box_nonce'], 'k9_save_meta_box')) {
         return;
