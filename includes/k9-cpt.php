@@ -49,6 +49,7 @@ function k9_render_meta_box($post)
     // Get existing meta values if they exist.
     $k9_owner_meta_field = get_post_meta($post->ID, 'k9_owner', true);
     $k9_department_agency_meta_field = get_post_meta($post->ID, 'k9_department_agency', true);
+    $k9_certifying_agency_meta_field= get_post_meta($post->ID,'k9_certifying_agency', true);
 
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
@@ -60,6 +61,10 @@ function k9_render_meta_box($post)
     <label for="k9_department_agency">K9 Handler Department or Agency:</label>
     <input type="text" id="k9_department_agency" name="k9_department_agency"
         value="<?php echo esc_attr($k9_department_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+
+        <label for="k9_certifying_agency">Certifying Agency or Department:</label>
+    <input type="text" id="k9_certifying_agency" name="k9_certifying_agency"
+        value="<?php echo esc_attr($k9_certifying_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
     <?php
 }
 
@@ -85,6 +90,9 @@ function k9_save_meta_box($post_id)
     }
     if (isset($_POST['k9_department_agency'])) {
         update_post_meta($post_id, '_k9_department_agency', sanitize_text_field($_POST['k9_department_agency']));
+    }
+    if (isset($_POST['k9_certifying_agency'])) {
+        update_post_meta($post_id, '_k9_certifying_agency', sanitize_text_field($_POST['k9_certifying_agency']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
