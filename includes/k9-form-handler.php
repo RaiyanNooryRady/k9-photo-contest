@@ -97,6 +97,65 @@ function k9_submission_form_shortcode() {
 add_shortcode('k9_submission_form', 'k9_submission_form_shortcode');
 
 // Handle form submission.
+// function k9_handle_form_submission() {
+//     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'k9_submit_form') {
+//         // Verify nonce for security.
+//         if (!isset($_POST['k9_nonce']) || !wp_verify_nonce($_POST['k9_nonce'], 'k9_submission_form')) {
+//             wp_die('Security check failed.');
+//         }
+
+//         // Include necessary WordPress files.
+//         if (!function_exists('media_handle_upload')) {
+//             require_once ABSPATH . 'wp-admin/includes/file.php';
+//             require_once ABSPATH . 'wp-admin/includes/media.php';
+//             require_once ABSPATH . 'wp-admin/includes/image.php';
+//         }
+
+//         // Sanitize and retrieve form data.
+//         $k9_name = sanitize_text_field($_POST['k9_name']);
+//         $k9_owner = sanitize_text_field($_POST['k9_owner']);
+//         $k9_memory = sanitize_textarea_field($_POST['k9_memory']);
+
+//         // Handle photo upload.
+//         $photo_id = 0;
+//         if (!empty($_FILES['k9_photo']['name'])) {
+//             $uploaded = media_handle_upload('k9_photo', 0);
+
+//             if (is_wp_error($uploaded)) {
+//                 wp_die('Photo upload failed: ' . $uploaded->get_error_message());
+//             }
+
+//             $photo_id = $uploaded;
+//         }
+
+//         // Create a new post.
+//         $post_id = wp_insert_post([
+//             'post_title'   => $k9_name,
+//             'post_content' => $k9_memory,
+//             'post_status'  => 'draft',
+//             'post_type'    => 'k9_submission',
+//             'meta_input'   => [
+//                 'k9_owner' => $k9_owner,
+//             ],
+//         ]);
+
+//         if (is_wp_error($post_id)) {
+//             wp_die('Post creation failed: ' . $post_id->get_error_message());
+//         }
+
+//         // Assign the uploaded photo as the featured image.
+//         if ($photo_id) {
+//             set_post_thumbnail($post_id, $photo_id);
+//         }
+
+//         // Redirect to a thank-you page.
+//         wp_redirect(home_url('/thank-you'));
+//         exit;
+//     }
+// }
+
+
+// Handle form submission.
 function k9_handle_form_submission() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'k9_submit_form') {
         // Verify nonce for security.
@@ -112,9 +171,21 @@ function k9_handle_form_submission() {
         }
 
         // Sanitize and retrieve form data.
-        $k9_name = sanitize_text_field($_POST['k9_name']);
         $k9_owner = sanitize_text_field($_POST['k9_owner']);
+        $k9_department_agency = sanitize_text_field($_POST['k9_department_agency']);
+        $k9_name = sanitize_text_field($_POST['k9_name']);
+        $k9_certifying_agency = sanitize_text_field($_POST['k9_certifying_agency']);
+        $k9_certification = !empty($_POST['k9_certification']) ? array_map('sanitize_text_field', $_POST['k9_certification']) : [];
+        $k9_years_on_job = intval($_POST['k9_years_on_job']);
+        $k9_age = intval($_POST['k9_age']);
         $k9_memory = sanitize_textarea_field($_POST['k9_memory']);
+        $k9_community_impact = sanitize_textarea_field($_POST['k9_community_impact']);
+        $k9_phone = sanitize_text_field($_POST['k9_phone']);
+        $k9_email = sanitize_email($_POST['k9_email']);
+        $k9_supervisor_name = sanitize_text_field($_POST['k9_supervisor_name']);
+        $k9_certified = sanitize_text_field($_POST['k9_certified']);
+        $k9_instagram_handle = sanitize_text_field($_POST['k9_instagram_handle']);
+        $k9_donation = sanitize_text_field($_POST['k9_donation']);
 
         // Handle photo upload.
         $photo_id = 0;
@@ -134,9 +205,6 @@ function k9_handle_form_submission() {
             'post_content' => $k9_memory,
             'post_status'  => 'draft',
             'post_type'    => 'k9_submission',
-            'meta_input'   => [
-                'k9_owner' => $k9_owner,
-            ],
         ]);
 
         if (is_wp_error($post_id)) {
@@ -147,6 +215,21 @@ function k9_handle_form_submission() {
         if ($photo_id) {
             set_post_thumbnail($post_id, $photo_id);
         }
+
+        // Save additional fields as post meta.
+        update_post_meta($post_id, 'k9_owner', $k9_owner);
+        update_post_meta($post_id, 'k9_department_agency', $k9_department_agency);
+        update_post_meta($post_id, 'k9_certifying_agency', $k9_certifying_agency);
+        update_post_meta($post_id, 'k9_certification', $k9_certification); // Saving as an array.
+        update_post_meta($post_id, 'k9_years_on_job', $k9_years_on_job);
+        update_post_meta($post_id, 'k9_age', $k9_age);
+        update_post_meta($post_id, 'k9_community_impact', $k9_community_impact);
+        update_post_meta($post_id, 'k9_phone', $k9_phone);
+        update_post_meta($post_id, 'k9_email', $k9_email);
+        update_post_meta($post_id, 'k9_supervisor_name', $k9_supervisor_name);
+        update_post_meta($post_id, 'k9_certified', $k9_certified);
+        update_post_meta($post_id, 'k9_instagram_handle', $k9_instagram_handle);
+        update_post_meta($post_id, 'k9_donation', $k9_donation);
 
         // Redirect to a thank-you page.
         wp_redirect(home_url('/thank-you'));
