@@ -2,11 +2,11 @@
 // Shortcode for the K9 submission form.
 function k9_submission_form_shortcode() {
     ob_start(); ?>
-    <form id="k9-submission-form" method="post" enctype="multipart/form-data">
+    <form id="k9-submission-form" class="k9-form" method="post" enctype="multipart/form-data">
         <?php wp_nonce_field('k9_submission_form', 'k9_nonce'); ?>
          <!-- Full Name -->
-    <label for="k9-owner"> Full Name:</label>
-    <input type="text" name="k9_owner" id="k9-owner" placeholder="Enter your full name" required>
+    <label for="k9-owner" class="form-label"> Full Name:</label>
+    <input type="text" name="k9_owner" id="k9-owner" class="form-control" placeholder="Enter your full name" required>
 
     <!-- Department or Agency -->
     <label for="k9-department-agency">K9 Handler Department or Agency:</label>
