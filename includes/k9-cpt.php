@@ -52,6 +52,7 @@ function k9_render_meta_box($post)
     $k9_certifying_agency_meta_field = get_post_meta($post->ID, 'k9_certifying_agency', true);
     $k9_years_on_job_meta_field = get_post_meta($post->ID, 'k9_years_on_job', true);
     $k9_age_meta_field = get_post_meta($post->ID, 'k9_age', true);
+    $k9_memory_meta_field = get_post_meta($post->ID, 'k9_memory', true);
 
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
@@ -73,8 +74,12 @@ function k9_render_meta_box($post)
         value="<?php echo esc_attr($k9_years_on_job_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
 
     <label for="k9_age">Age of K9</label>
-    <input type="number" id="k9_age" name="k9_age"
-        value="<?php echo esc_attr($k9_age_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+    <input type="number" id="k9_age" name="k9_age" value="<?php echo esc_attr($k9_age_meta_field); ?>"
+        style="width: 100%; margin-bottom: 10px;" />
+
+    <label for="k9_memory">Best or Most Notable Career Accomplishment or Favorite Memory:</label>
+    <input type="number" id="k9_memory" name="k9_memory" value="<?php echo esc_attr($k9_memory_meta_field); ?>"
+        style="width: 100%; margin-bottom: 10px;" />
     <?php
 }
 
@@ -109,6 +114,9 @@ function k9_save_meta_box($post_id)
     }
     if (isset($_POST['k9_age'])) {
         update_post_meta($post_id, '_k9_age', sanitize_text_field($_POST['k9_age']));
+    }
+    if (isset($_POST['k9_memory'])) {
+        update_post_meta($post_id, '_k9_memory', sanitize_text_field($_POST['k9_memory']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
