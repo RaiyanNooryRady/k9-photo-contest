@@ -49,7 +49,9 @@ function k9_render_meta_box($post)
     // Get existing meta values if they exist.
     $k9_owner_meta_field = get_post_meta($post->ID, 'k9_owner', true);
     $k9_department_agency_meta_field = get_post_meta($post->ID, 'k9_department_agency', true);
-    $k9_certifying_agency_meta_field= get_post_meta($post->ID,'k9_certifying_agency', true);
+    $k9_certifying_agency_meta_field = get_post_meta($post->ID, 'k9_certifying_agency', true);
+    $k9_years_on_job_meta_field = get_post_meta($post->ID, 'k9_years_on_job', true);
+    $k9_age_meta_field = get_post_meta($post->ID, 'k9_age', true);
 
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
@@ -62,9 +64,17 @@ function k9_render_meta_box($post)
     <input type="text" id="k9_department_agency" name="k9_department_agency"
         value="<?php echo esc_attr($k9_department_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
 
-        <label for="k9_certifying_agency">Certifying Agency or Department:</label>
+    <label for="k9_certifying_agency">Certifying Agency or Department:</label>
     <input type="text" id="k9_certifying_agency" name="k9_certifying_agency"
         value="<?php echo esc_attr($k9_certifying_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+
+    <label for="k9_years_on_job">Years on the Job:</label>
+    <input type="number" id="k9_years_on_job" name="k9_years_on_job"
+        value="<?php echo esc_attr($k9_years_on_job_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+
+    <label for="k9_age">Age of K9</label>
+    <input type="number" id="k9_age" name="k9_age"
+        value="<?php echo esc_attr($k9_age_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
     <?php
 }
 
@@ -93,6 +103,12 @@ function k9_save_meta_box($post_id)
     }
     if (isset($_POST['k9_certifying_agency'])) {
         update_post_meta($post_id, '_k9_certifying_agency', sanitize_text_field($_POST['k9_certifying_agency']));
+    }
+    if (isset($_POST['k9_years_on_job'])) {
+        update_post_meta($post_id, '_k9_years_on_job', sanitize_text_field($_POST['k9_years_on_job']));
+    }
+    if (isset($_POST['k9_age'])) {
+        update_post_meta($post_id, '_k9_age', sanitize_text_field($_POST['k9_age']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
