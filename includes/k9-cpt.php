@@ -54,7 +54,7 @@ function k9_render_meta_box($post)
     $k9_age_meta_field = get_post_meta($post->ID, 'k9_age', true);
     // $k9_memory_meta_field = get_post_meta($post->ID, 'k9_memory', true);
     $k9_phone_meta_field = get_post_meta($post->ID, 'k9_phone', true);
-
+    $k9_email_meta_field = get_post_meta($post->ID, 'k9_email', true);
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
     ?>
@@ -84,6 +84,10 @@ function k9_render_meta_box($post)
 
     <label for="k9_phone">K9 Phone</label>
     <input type="number" id="k9_phone" name="k9_phone" value="<?php echo esc_attr($k9_phone_meta_field); ?>"
+        class="k9-admin-field" />
+
+    <label for="k9_email">K9 Email</label>
+    <input type="email" id="k9_email" name="k9_email" value="<?php echo esc_attr($k9_email_meta_field); ?>"
         class="k9-admin-field" />
     <?php
 }
@@ -125,6 +129,9 @@ function k9_save_meta_box($post_id)
     // }
     if (isset($_POST['k9_phone'])) {
         update_post_meta($post_id, 'k9_phone', sanitize_text_field($_POST['k9_phone']));
+    }
+    if (isset($_POST['k9_email'])) {
+        update_post_meta($post_id, 'k9_email', sanitize_text_field($_POST['k9_email']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
