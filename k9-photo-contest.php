@@ -31,3 +31,9 @@ function k9_enqueue_scripts() {
     wp_enqueue_script('k9-scripts', K9_PHOTO_CONTEST_URL . 'assets/js/script.js', ['jquery'], false, true);
 }
 add_action('wp_enqueue_scripts', 'k9_enqueue_scripts');
+
+function k9_admin_enqueues() {
+    //Enqueue admin styles
+    wp_enqueue_style('k9-admin-styles', K9_PHOTO_CONTEST_URL . 'assets/admin/css/admin-style.css');
+}
+add_action('admin_enqueue_scripts','k9_admin_enqueues');

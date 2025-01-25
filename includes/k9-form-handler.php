@@ -198,7 +198,7 @@ function k9_handle_form_submission()
         update_post_meta($post_id, 'k9_certification', $k9_certification); // Saving as an array.
         update_post_meta($post_id, 'k9_years_on_job', $k9_years_on_job);
         update_post_meta($post_id, 'k9_age', $k9_age);
-        update_post_meta($post_id, 'k9_memory', $k9_memory);
+        // update_post_meta($post_id, 'k9_memory', $k9_memory);
         update_post_meta($post_id, 'k9_phone', $k9_phone);
         update_post_meta($post_id, 'k9_email', $k9_email);
         update_post_meta($post_id, 'k9_supervisor_name', $k9_supervisor_name);

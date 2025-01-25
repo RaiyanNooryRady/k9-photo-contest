@@ -52,34 +52,39 @@ function k9_render_meta_box($post)
     $k9_certifying_agency_meta_field = get_post_meta($post->ID, 'k9_certifying_agency', true);
     $k9_years_on_job_meta_field = get_post_meta($post->ID, 'k9_years_on_job', true);
     $k9_age_meta_field = get_post_meta($post->ID, 'k9_age', true);
-    $k9_memory_meta_field = get_post_meta($post->ID, 'k9_memory', true);
+    // $k9_memory_meta_field = get_post_meta($post->ID, 'k9_memory', true);
+    $k9_phone_meta_field = get_post_meta($post->ID, 'k9_phone', true);
 
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
     ?>
     <label for="k9_owner">Full Name</label>
-    <input type="text" id="k9_owner" name="k9_owner" value="<?php echo esc_attr($k9_owner_meta_field); ?>"
-        style="width: 100%; margin-bottom: 10px;" />
+    <input type="text" id="k9_owner" class="k9-admin-field" name="k9_owner"
+        value="<?php echo esc_attr($k9_owner_meta_field); ?>" />
 
     <label for="k9_department_agency">K9 Handler Department or Agency:</label>
-    <input type="text" id="k9_department_agency" name="k9_department_agency"
-        value="<?php echo esc_attr($k9_department_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+    <input type="text" id="k9_department_agency" class="k9-admin-field" name="k9_department_agency"
+        value="<?php echo esc_attr($k9_department_agency_meta_field); ?>" />
 
     <label for="k9_certifying_agency">Certifying Agency or Department:</label>
     <input type="text" id="k9_certifying_agency" name="k9_certifying_agency"
-        value="<?php echo esc_attr($k9_certifying_agency_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+        value="<?php echo esc_attr($k9_certifying_agency_meta_field); ?>" class="k9-admin-field" />
 
     <label for="k9_years_on_job">Years on the Job:</label>
     <input type="number" id="k9_years_on_job" name="k9_years_on_job"
-        value="<?php echo esc_attr($k9_years_on_job_meta_field); ?>" style="width: 100%; margin-bottom: 10px;" />
+        value="<?php echo esc_attr($k9_years_on_job_meta_field); ?>" class="k9-admin-field" />
 
     <label for="k9_age">Age of K9</label>
     <input type="number" id="k9_age" name="k9_age" value="<?php echo esc_attr($k9_age_meta_field); ?>"
-        style="width: 100%; margin-bottom: 10px;" />
+        class="k9-admin-field" />
 
-    <label for="k9_memory">Best or Most Notable Career Accomplishment or Favorite Memory:</label>
-    <input type="text" id="k9_memory" name="k9_memory" value="<?php echo esc_attr($k9_memory_meta_field); ?>"
-        style="width: 100%; margin-bottom: 10px;" />
+    <!-- <label for="k9_memory">Best or Most Notable Career Accomplishment or Favorite Memory:</label>
+    <input type="text" id="k9_memory" name="k9_memory" value="<?php //echo esc_attr($k9_memory_meta_field); ?>"
+        style="width: 100%; margin-bottom: 10px;" /> -->
+
+    <label for="k9_phone">K9 Phone</label>
+    <input type="number" id="k9_phone" name="k9_phone" value="<?php echo esc_attr($k9_phone_meta_field); ?>"
+        class="k9-admin-field" />
     <?php
 }
 
@@ -115,8 +120,11 @@ function k9_save_meta_box($post_id)
     if (isset($_POST['k9_age'])) {
         update_post_meta($post_id, 'k9_age', sanitize_text_field($_POST['k9_age']));
     }
-    if (isset($_POST['k9_memory'])) {
-        update_post_meta($post_id, 'k9_memory', sanitize_text_field($_POST['k9_memory']));
+    // if (isset($_POST['k9_memory'])) {
+    //     update_post_meta($post_id, 'k9_memory', sanitize_text_field($_POST['k9_memory']));
+    // }
+    if (isset($_POST['k9_phone'])) {
+        update_post_meta($post_id, 'k9_phone', sanitize_text_field($_POST['k9_phone']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
