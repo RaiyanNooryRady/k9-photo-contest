@@ -50,6 +50,10 @@ function k9_render_meta_box($post)
     $k9_owner_meta_field = get_post_meta($post->ID, 'k9_owner', true);
     $k9_department_agency_meta_field = get_post_meta($post->ID, 'k9_department_agency', true);
     $k9_certifying_agency_meta_field = get_post_meta($post->ID, 'k9_certifying_agency', true);
+
+    $k9_certification_meta_field = get_post_meta($post->ID, 'k9_certification', true);
+    $k9_certification_meta_field = is_array($k9_certification_meta_field) ? $k9_certification_meta_field : [];
+
     $k9_years_on_job_meta_field = get_post_meta($post->ID, 'k9_years_on_job', true);
     $k9_age_meta_field = get_post_meta($post->ID, 'k9_age', true);
     // $k9_memory_meta_field = get_post_meta($post->ID, 'k9_memory', true);
@@ -74,6 +78,18 @@ function k9_render_meta_box($post)
     <input type="text" id="k9_certifying_agency" name="k9_certifying_agency"
         value="<?php echo esc_attr($k9_certifying_agency_meta_field); ?>" class="k9-admin-field" />
 
+    <label for="k9_certification">What is the K9 Certified In?</label><br>
+    <div>
+        <input type="checkbox" id="k9_certification_patrol" name="k9_certification[]"
+            value="Patrol K9 / Cross Trained Patrol K9" <?php checked(in_array('Patrol K9 / Cross Trained Patrol K9', $k9_certification_meta_field)); ?> />
+        <label for="k9_certification_patrol">Patrol K9 / Cross Trained Patrol K9</label>
+    </div>
+    <div>
+        <input type="checkbox" id="k9_certification_scent" name="k9_certification[]" value="Scent Detection / Tracking K9"
+            <?php checked(in_array('Scent Detection / Tracking K9', $k9_certification_meta_field)); ?> />
+        <label for="k9_certification_scent">Scent Detection / Tracking K9</label>
+    </div>
+
     <label for="k9_years_on_job">Years on the Job:</label>
     <input type="number" id="k9_years_on_job" name="k9_years_on_job"
         value="<?php echo esc_attr($k9_years_on_job_meta_field); ?>" class="k9-admin-field" />
@@ -81,10 +97,6 @@ function k9_render_meta_box($post)
     <label for="k9_age">Age of K9</label>
     <input type="number" id="k9_age" name="k9_age" value="<?php echo esc_attr($k9_age_meta_field); ?>"
         class="k9-admin-field" />
-
-    <!-- <label for="k9_memory">Best or Most Notable Career Accomplishment or Favorite Memory:</label>
-    <input type="text" id="k9_memory" name="k9_memory" value="<?php //echo esc_attr($k9_memory_meta_field); ?>"
-        style="width: 100%; margin-bottom: 10px;" /> -->
 
     <label for="k9_phone">Phone:</label>
     <input type="number" id="k9_phone" name="k9_phone" value="<?php echo esc_attr($k9_phone_meta_field); ?>"
@@ -105,10 +117,10 @@ function k9_render_meta_box($post)
     <label for="k9_instagram_handle">Instagram Handle:</label>
     <input type="text" id="k9_instagram_handle" name="k9_instagram_handle"
         value="<?php echo esc_attr($k9_instagram_handle_meta_field); ?>" class="k9-admin-field" />
-    
+
     <label for="k9_donation">Would You Like to Make an Optional Donation?</label>
-    <input type="text" id="k9_donation" name="k9_donation"
-        value="<?php echo esc_attr($k9_donation_meta_field); ?>" class="k9-admin-field" />
+    <input type="text" id="k9_donation" name="k9_donation" value="<?php echo esc_attr($k9_donation_meta_field); ?>"
+        class="k9-admin-field" />
     <?php
 }
 
@@ -138,15 +150,20 @@ function k9_save_meta_box($post_id)
     if (isset($_POST['k9_certifying_agency'])) {
         update_post_meta($post_id, 'k9_certifying_agency', sanitize_text_field($_POST['k9_certifying_agency']));
     }
+    // Save the `k9_certification` field as an array.
+    if (isset($_POST['k9_certification']) && is_array($_POST['k9_certification'])) {
+        update_post_meta($post_id, 'k9_certification', array_map('sanitize_text_field', $_POST['k9_certification']));
+    } else {
+        delete_post_meta($post_id, 'k9_certification'); // Clear if no certifications are checked.
+    }
+
     if (isset($_POST['k9_years_on_job'])) {
         update_post_meta($post_id, 'k9_years_on_job', sanitize_text_field($_POST['k9_years_on_job']));
     }
     if (isset($_POST['k9_age'])) {
         update_post_meta($post_id, 'k9_age', sanitize_text_field($_POST['k9_age']));
     }
-    // if (isset($_POST['k9_memory'])) {
-    //     update_post_meta($post_id, 'k9_memory', sanitize_text_field($_POST['k9_memory']));
-    // }
+
     if (isset($_POST['k9_phone'])) {
         update_post_meta($post_id, 'k9_phone', sanitize_text_field($_POST['k9_phone']));
     }
