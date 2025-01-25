@@ -58,7 +58,7 @@ function k9_render_meta_box($post)
     $k9_supervisor_name_meta_field = get_post_meta($post->ID, 'k9_supervisor_name', true);
     $k9_certified_meta_field = get_post_meta($post->ID, 'k9_certified', true);
     $k9_instagram_handle_meta_field = get_post_meta($post->ID, 'k9_instagram_handle', true);
-
+    $k9_donation_meta_field = get_post_meta($post->ID, 'k9_donation', true);
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
     ?>
@@ -103,8 +103,12 @@ function k9_render_meta_box($post)
         class="k9-admin-field" />
 
     <label for="k9_instagram_handle">Instagram Handle:</label>
-    <input type="text" id="k9_instagram_handle" name="k9_instagram_handle" value="<?php echo esc_attr($k9_instagram_handle_meta_field); ?>"
-        class="k9-admin-field" />
+    <input type="text" id="k9_instagram_handle" name="k9_instagram_handle"
+        value="<?php echo esc_attr($k9_instagram_handle_meta_field); ?>" class="k9-admin-field" />
+    
+    <label for="k9_donation">Would You Like to Make an Optional Donation?</label>
+    <input type="text" id="k9_donation" name="k9_donation"
+        value="<?php echo esc_attr($k9_donation_meta_field); ?>" class="k9-admin-field" />
     <?php
 }
 
@@ -157,6 +161,9 @@ function k9_save_meta_box($post_id)
     }
     if (isset($_POST['k9_instagram_handle'])) {
         update_post_meta($post_id, 'k9_instagram_handle', sanitize_text_field($_POST['k9_instagram_handle']));
+    }
+    if (isset($_POST['k9_donation'])) {
+        update_post_meta($post_id, 'k9_donation', sanitize_text_field($_POST['k9_donation']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
