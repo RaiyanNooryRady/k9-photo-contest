@@ -56,6 +56,7 @@ function k9_render_meta_box($post)
     $k9_phone_meta_field = get_post_meta($post->ID, 'k9_phone', true);
     $k9_email_meta_field = get_post_meta($post->ID, 'k9_email', true);
     $k9_supervisor_name_meta_field = get_post_meta($post->ID, 'k9_supervisor_name', true);
+    $k9_certified_meta_field = get_post_meta($post->ID, 'k9_certified', true);
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
     ?>
@@ -92,8 +93,12 @@ function k9_render_meta_box($post)
         class="k9-admin-field" />
 
     <label for="k9_supervisor_name">Direct Supervisor's Name:</label>
-    <input type="text" id="k9_supervisor_name" name="k9_supervisor_name" value="<?php echo esc_attr($k9_supervisor_name_meta_field); ?>"
-        class="k9-admin-field" />
+    <input type="text" id="k9_supervisor_name" name="k9_supervisor_name"
+        value="<?php echo esc_attr($k9_supervisor_name_meta_field); ?>" class="k9-admin-field" />
+
+    <label for="k9_certified">Certification Confirmation:</label>
+    <input type="text" id="k9_certified" name="k9_certified"
+        value="<?php echo esc_attr($k9_certified_meta_field); ?>" class="k9-admin-field" />
     <?php
 }
 
@@ -140,6 +145,9 @@ function k9_save_meta_box($post_id)
     }
     if (isset($_POST['k9_supervisor_name'])) {
         update_post_meta($post_id, 'k9_supervisor_name', sanitize_text_field($_POST['k9_supervisor_name']));
+    }
+    if (isset($_POST['k9_certified'])) {
+        update_post_meta($post_id, 'k9_certified', sanitize_text_field($_POST['k9_certified']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
