@@ -3,30 +3,32 @@
 function k9_submission_form_shortcode()
 {
     ob_start(); ?>
-    
-    <form id="k9-submission-form" class="k9-form needs-validation" method="post" enctype="multipart/form-data" novalidate>
+    <form id="k9-submission-form" class="k9-form needs-validation bg-dark text-light p-4 rounded" method="post"
+        enctype="multipart/form-data" novalidate>
         <?php wp_nonce_field('k9_submission_form', 'k9_nonce'); ?>
         <div class="mb-3">
             <label for="k9-owner" class="form-label">Full Name:</label>
-            <input type="text" name="k9_owner" id="k9-owner" class="form-control" placeholder="Enter your full name"
-                required>
+            <input type="text" name="k9_owner" id="k9-owner" class="form-control bg-dark text-light border-secondary"
+                placeholder="Enter your full name" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-department-agency" class="form-label">K9 Handler Department or Agency:</label>
-            <input type="text" name="k9_department_agency" id="k9-department-agency" class="form-control"
-                placeholder="Enter department or agency" required>
+            <input type="text" name="k9_department_agency" id="k9-department-agency"
+                class="form-control bg-dark text-light border-secondary" placeholder="Enter department or agency" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-name" class="form-label">K9 Name:</label>
-            <input type="text" name="k9_name" id="k9-name" class="form-control" placeholder="Enter K9's name" required>
+            <input type="text" name="k9_name" id="k9-name" class="form-control bg-dark text-light border-secondary"
+                placeholder="Enter K9's name" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-certifying-agency" class="form-label">Certifying Agency or Department:</label>
-            <input type="text" name="k9_certifying_agency" id="k9-certifying-agency" class="form-control"
-                placeholder="Enter certifying agency or department" required>
+            <input type="text" name="k9_certifying_agency" id="k9-certifying-agency"
+                class="form-control bg-dark text-light border-secondary" placeholder="Enter certifying agency or department"
+                required>
         </div>
 
         <div class="mb-3">
@@ -45,38 +47,39 @@ function k9_submission_form_shortcode()
 
         <div class="mb-3">
             <label for="k9-years-on-job" class="form-label">Years on the Job:</label>
-            <input type="number" name="k9_years_on_job" id="k9-years-on-job" class="form-control"
-                placeholder="Enter years on the job" required>
+            <input type="number" name="k9_years_on_job" id="k9-years-on-job"
+                class="form-control bg-dark text-light border-secondary" placeholder="Enter years on the job" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-age" class="form-label">Age of K9:</label>
-            <input type="number" name="k9_age" id="k9-age" class="form-control" placeholder="Enter K9's age" required>
+            <input type="number" name="k9_age" id="k9-age" class="form-control bg-dark text-light border-secondary"
+                placeholder="Enter K9's age" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-memory" class="form-label">Best or Most Notable Career Accomplishment or Favorite Memory:</label>
-            <textarea name="k9_memory" id="k9-memory" class="form-control" rows="4"
+            <textarea name="k9_memory" id="k9-memory" class="form-control bg-dark text-light border-secondary" rows="4"
                 placeholder="We love hearing how our K9 teams have impacted our communities. We’d love to hear yours!"
                 required></textarea>
         </div>
 
         <div class="mb-3">
             <label for="k9-phone" class="form-label">Phone:</label>
-            <input type="tel" name="k9_phone" id="k9-phone" class="form-control" placeholder="Enter your phone number"
-                required>
+            <input type="tel" name="k9_phone" id="k9-phone" class="form-control bg-dark text-light border-secondary"
+                placeholder="Enter your phone number" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-email" class="form-label">Email:</label>
-            <input type="email" name="k9_email" id="k9-email" class="form-control" placeholder="Enter your email address"
-                required>
+            <input type="email" name="k9_email" id="k9-email" class="form-control bg-dark text-light border-secondary"
+                placeholder="Enter your email address" required>
         </div>
 
         <div class="mb-3">
             <label for="k9-supervisor-name" class="form-label">Direct Supervisor's Name:</label>
-            <input type="text" name="k9_supervisor_name" id="k9-supervisor-name" class="form-control"
-                placeholder="Enter supervisor's name" required>
+            <input type="text" name="k9_supervisor_name" id="k9-supervisor-name"
+                class="form-control bg-dark text-light border-secondary" placeholder="Enter supervisor's name" required>
         </div>
 
         <div class="mb-3">
@@ -90,15 +93,16 @@ function k9_submission_form_shortcode()
 
         <div class="mb-3">
             <label for="k9-instagram-handle" class="form-label">Instagram Handle:</label>
-            <input type="text" name="k9_instagram_handle" id="k9-instagram-handle" class="form-control"
-                placeholder="Enter Instagram handle">
+            <input type="text" name="k9_instagram_handle" id="k9-instagram-handle"
+                class="form-control bg-dark text-light border-secondary" placeholder="Enter Instagram handle">
             <small class="form-text text-muted">Please only put your personal Instagram handle if you agree to let us tag
                 you in posts.</small>
         </div>
 
         <div class="mb-3">
             <label for="k9-photo" class="form-label">Upload a Picture of Your K9:</label>
-            <input type="file" name="k9_photo" id="k9-photo" class="form-control" accept="image/*" required>
+            <input type="file" name="k9_photo" id="k9-photo" class="form-control bg-dark text-light border-secondary"
+                accept="image/*" required>
             <small class="form-text text-muted">Max file size: 10 MB. Images can be of just your K9 or you and your
                 K9!</small>
         </div>
@@ -118,6 +122,7 @@ function k9_submission_form_shortcode()
         <input type="hidden" name="action" value="k9_submit_form">
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
 
     <?php
     return ob_get_clean();
