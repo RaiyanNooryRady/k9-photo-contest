@@ -78,7 +78,7 @@ function k9_render_meta_box($post)
         style="width: 100%; margin-bottom: 10px;" />
 
     <label for="k9_memory">Best or Most Notable Career Accomplishment or Favorite Memory:</label>
-    <input type="number" id="k9_memory" name="k9_memory" value="<?php echo esc_attr($k9_memory_meta_field); ?>"
+    <input type="text" id="k9_memory" name="k9_memory" value="<?php echo esc_attr($k9_memory_meta_field); ?>"
         style="width: 100%; margin-bottom: 10px;" />
     <?php
 }
@@ -101,22 +101,22 @@ function k9_save_meta_box($post_id)
 
     // Save meta fields.
     if (isset($_POST['k9_owner'])) {
-        update_post_meta($post_id, '_k9_owner', sanitize_text_field($_POST['k9_owner']));
+        update_post_meta($post_id, 'k9_owner', sanitize_text_field($_POST['k9_owner']));
     }
     if (isset($_POST['k9_department_agency'])) {
-        update_post_meta($post_id, '_k9_department_agency', sanitize_text_field($_POST['k9_department_agency']));
+        update_post_meta($post_id, 'k9_department_agency', sanitize_text_field($_POST['k9_department_agency']));
     }
     if (isset($_POST['k9_certifying_agency'])) {
-        update_post_meta($post_id, '_k9_certifying_agency', sanitize_text_field($_POST['k9_certifying_agency']));
+        update_post_meta($post_id, 'k9_certifying_agency', sanitize_text_field($_POST['k9_certifying_agency']));
     }
     if (isset($_POST['k9_years_on_job'])) {
-        update_post_meta($post_id, '_k9_years_on_job', sanitize_text_field($_POST['k9_years_on_job']));
+        update_post_meta($post_id, 'k9_years_on_job', sanitize_text_field($_POST['k9_years_on_job']));
     }
     if (isset($_POST['k9_age'])) {
-        update_post_meta($post_id, '_k9_age', sanitize_text_field($_POST['k9_age']));
+        update_post_meta($post_id, 'k9_age', sanitize_text_field($_POST['k9_age']));
     }
     if (isset($_POST['k9_memory'])) {
-        update_post_meta($post_id, '_k9_memory', sanitize_text_field($_POST['k9_memory']));
+        update_post_meta($post_id, 'k9_memory', sanitize_text_field($_POST['k9_memory']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
