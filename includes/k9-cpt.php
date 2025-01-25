@@ -55,6 +55,7 @@ function k9_render_meta_box($post)
     // $k9_memory_meta_field = get_post_meta($post->ID, 'k9_memory', true);
     $k9_phone_meta_field = get_post_meta($post->ID, 'k9_phone', true);
     $k9_email_meta_field = get_post_meta($post->ID, 'k9_email', true);
+    $k9_supervisor_name_meta_field = get_post_meta($post->ID, 'k9_supervisor_name', true);
     // Add a nonce field for security.
     wp_nonce_field('k9_save_meta_box', 'k9_meta_box_nonce');
     ?>
@@ -82,12 +83,16 @@ function k9_render_meta_box($post)
     <input type="text" id="k9_memory" name="k9_memory" value="<?php //echo esc_attr($k9_memory_meta_field); ?>"
         style="width: 100%; margin-bottom: 10px;" /> -->
 
-    <label for="k9_phone">K9 Phone</label>
+    <label for="k9_phone">Phone:</label>
     <input type="number" id="k9_phone" name="k9_phone" value="<?php echo esc_attr($k9_phone_meta_field); ?>"
         class="k9-admin-field" />
 
-    <label for="k9_email">K9 Email</label>
+    <label for="k9_email">Email:</label>
     <input type="email" id="k9_email" name="k9_email" value="<?php echo esc_attr($k9_email_meta_field); ?>"
+        class="k9-admin-field" />
+
+    <label for="k9_supervisor_name">Direct Supervisor's Name:</label>
+    <input type="text" id="k9_supervisor_name" name="k9_supervisor_name" value="<?php echo esc_attr($k9_supervisor_name_meta_field); ?>"
         class="k9-admin-field" />
     <?php
 }
@@ -132,6 +137,9 @@ function k9_save_meta_box($post_id)
     }
     if (isset($_POST['k9_email'])) {
         update_post_meta($post_id, 'k9_email', sanitize_text_field($_POST['k9_email']));
+    }
+    if (isset($_POST['k9_supervisor_name'])) {
+        update_post_meta($post_id, 'k9_supervisor_name', sanitize_text_field($_POST['k9_supervisor_name']));
     }
 }
 add_action('save_post', 'k9_save_meta_box');
