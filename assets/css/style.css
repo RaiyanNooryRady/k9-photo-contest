@@ -406,14 +406,14 @@ span.post-next {
 
 /*css for single post top contents*/
 
-div.post-title h1{
+.k9-post-title h1{
     font-size: 70px;
     font-weight: 700;
     line-height: 60px;
     color: #FFFFFF;
 }
 
-.post-info-section {
+.k9-post-info-section {
     position: relative;
     min-height: 450px;
     text-align: center;
@@ -428,16 +428,14 @@ div.post-title h1{
     background-size: cover;
 }
 
-.post-buttons {
+.k9-post-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
     margin-top: 30px;
 }
 
-/* css for buttons */
-
-div.post-buttons .btn {
+.k9-post-buttons .btn {
     padding: 15px 40px;
     font-size: 1rem;
     border-radius: 10px;
@@ -445,13 +443,13 @@ div.post-buttons .btn {
     font-weight: bold;
 }
 
-.btn-primary {
+.k9-btn-primary {
     background-color: #2406cb;
     color: #C6C6C6;
     border: 1px solid #C6C6C6;
 }
 
-.btn-secondary {
+.k9-btn-secondary {
     color: #C6C6C6;
     border: 1px solid #C6C6C6;
     background-color: transparent !important;
@@ -467,7 +465,7 @@ div.post-buttons .btn {
     transition: all 0.2s ease-in-out;
 }
 
-.btn-secondary:hover {
+.k9-btn-secondary:hover {
     background-color: #2406cb !important;
     color: #C6C6C6;
     border: 1px solid #C6C6C6;
@@ -476,11 +474,11 @@ div.post-buttons .btn {
 
 /* css for button transition effect*/
 
-.post-buttons .btn {
+.k9-post-buttons .btn {
     transition: all 0.2s ease-in-out;
 }
 
-.post-buttons .btn-primary:hover {
+.k9-post-buttons .k9-btn-primary:hover {
     border: 1px solid #C6C6C6;
     transform: scale(1.10);
     box-shadow: 0 0 10px rgba(0, 91, 187, 0.5);
@@ -488,30 +486,23 @@ div.post-buttons .btn {
 
 /* css for single post top contents dashicons */
 
-.post-meta {
+.k9-post-meta {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    font-size: 1.25rem;
     font-weight: 600;
     color: #C6C6C6;
     margin-bottom: 10px;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 5px 0 5px;
+    font-size: 18px;
+    color: #FFFFFF;
 }
 
-.post-meta span {
+.k9-post-meta span {
     display: flex;
     align-items: center;
     gap: 5px;
-}
-
-.dashicons-admin-users {
-    font-size: 18px;
-    color: #FFFFFF;
-}
-
-.dashicons-calendar {
-    font-size: 18px;
-    color: #FFFFFF;
 }
 
 .dashicons-heart {
@@ -581,31 +572,23 @@ hr.hr-line-bottom {
         flex-direction: row;
     }
 
-    .post-info-section {
+    .k9-post-info-section {
         min-height: 350px;
 
     div.post-buttons .btn {
         padding: 10px 25px;
     }
 
-    div.post-title h1 {
+    .k9-post-title h1 {
         font-size: 2.625rem;
     }
 
-    .post-meta {
-        font-size: 1rem;
-        flex-direction: row;
-        justify-content: center;
-        gap: 10px;
-        padding: 0 5px 0 5px;
-    }
-
-    .post-buttons {
+    .k9-post-buttons {
         flex-direction: row;
         justify-content: center;
     }
 
-    .post-buttons a {
+    .k9-post-buttons a {
         min-width: 150px;
     }
 }
@@ -825,4 +808,3 @@ hr.hr-line-bottom {
     display: table;
     clear: both;
 }
-

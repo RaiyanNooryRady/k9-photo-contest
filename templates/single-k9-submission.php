@@ -5,14 +5,14 @@
 get_header(); ?>
 
 <!-- Full-Width Section with Three Rows -->
-<div class="col-12 post-info-section">
+<div class="col-12 k9-post-info-section">
     <!-- Row 1: Post Title -->
-    <div class="post-title">
+    <div class="k9-post-title">
         <h1><?php the_title(); ?></h1>
     </div>
 
     <!-- Row 2: Author, Entry Date, Total Votes -->
-    <div class="post-meta">
+    <div class="k9-post-meta">
         <span class="post-author">
             <span class="dashicons dashicons-admin-users"></span> <?php echo get_the_author_meta('display_name', get_post_field('post_author', get_the_ID())); ?>
         </span>
@@ -31,13 +31,13 @@ get_header(); ?>
     $has_voted = $user_id ? get_user_meta($user_id, 'k9_voted_post_' . get_the_ID(), true) : false;
     //end
     ?>
-    <div class="post-buttons">
-        <a href="<?php echo site_url(); ?>" class="btn btn-secondary">&larr; Back to Home</a>        
+    <div class="k9-post-buttons">
+        <a href="<?php echo site_url(); ?>" class="btn k9-btn-secondary">&larr; Back to Home</a>        
         <?php if (is_user_logged_in()) : ?>
             <?php if (!$has_voted) : ?>
-                <a href="#" class="btn btn-primary k9-card-vote-now" data-post-id="<?php echo $post_id; ?>"><span class="dashicons dashicons-heart"></span>Vote Now</a>
+                <a href="#" class="btn k9-btn-primary k9-card-vote-now" data-post-id="<?php echo $post_id; ?>"><span class="dashicons dashicons-heart"></span>Vote Now</a>
             <?php else : ?>
-                <a href="#" class="btn btn-primary"><span class="dashicons dashicons-heart"></span>Voted!</a>
+                <a href="#" class="btn k9-btn-primary"><span class="dashicons dashicons-heart"></span>Voted!</a>
             <?php endif; ?>
         <?php else : ?>
             <p class="k9-card-not-authorized"><a href="<?php echo wp_login_url(); ?>">Log in</a> to vote</p>
