@@ -31,11 +31,25 @@ function k9_submission_display_shortcode($atts) {
             $k9_author = get_post_meta($post_id, 'k9_owner', true);
             $k9_votes = get_post_meta($post_id, 'k9_votes', true) ?: 0;
             $k9_permalink = get_permalink();
+            
+            // Get expiry date and standardize it
+            $k9_expiry_date = get_post_meta($post_id, 'k9_expiry_date', true);
+            $current_date = current_time('Y-m-d'); // Get only date (ignores time)
+
+            // Normalize expiry date format
+            if (!empty($k9_expiry_date)) {
+                $k9_expiry_date = str_replace("T", " ", $k9_expiry_date);
+                $k9_expiry_date = date('Y-m-d', strtotime($k9_expiry_date)); // Extract only the date
+            }
+
+            // Skip this post if expiry date exists and is in the past
+            if (!empty($k9_expiry_date) && $k9_expiry_date < $current_date) {
+                continue;
+            }
 
             // Check if the current user has voted for this post
             $user_id = get_current_user_id();
             $has_voted = $user_id ? get_user_meta($user_id, 'k9_voted_post_' . $post_id, true) : false;
-
             ?>
             <div class="k9-card">
                 <?php if ($k9_image) : ?>

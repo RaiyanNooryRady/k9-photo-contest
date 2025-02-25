@@ -40,8 +40,32 @@ function k9_add_meta_boxes()
         'normal',                     // Context
         'high'                        // Priority
     );
+
+    // Add Expiry Date Meta Box
+    add_meta_box(
+        'k9_expiry_meta_box',
+        'Post Expiry Date',
+        'k9_render_expiry_meta_box',
+        'k9_submission',
+        'side',
+        'default'
+    );
 }
 add_action('add_meta_boxes', 'k9_add_meta_boxes');
+
+// Render the expiry date meta box.
+function k9_render_expiry_meta_box($post)
+{
+    $k9_expiry_date = get_post_meta($post->ID, 'k9_expiry_date', true);
+
+    wp_nonce_field('k9_save_expiry_meta_box', 'k9_expiry_meta_box_nonce');
+    ?>
+    <label for="k9_expiry_date">Set Expiry Date:</label>
+    <input type="date" id="k9_expiry_date" name="k9_expiry_date"
+        value="<?php echo esc_attr($k9_expiry_date); ?>" class="k9-admin-field" />
+    <p><small>After this date, the photo will not be displayed.</small></p>
+    <?php
+}
 
 // Render the meta box.
 function k9_render_meta_box($post)
@@ -184,3 +208,26 @@ function k9_save_meta_box($post_id)
     }
 }
 add_action('save_post', 'k9_save_meta_box');
+
+// Save the expiry date.
+function k9_save_expiry_meta_box($post_id)
+{
+    // Check nonce validity.
+    if (!isset($_POST['k9_expiry_meta_box_nonce']) || !wp_verify_nonce($_POST['k9_expiry_meta_box_nonce'], 'k9_save_expiry_meta_box')) {
+        return;
+    }
+
+    // Check for autosave and user permissions.
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // Save the expiry date (date-only format).
+    if (isset($_POST['k9_expiry_date'])) {
+        update_post_meta($post_id, 'k9_expiry_date', sanitize_text_field($_POST['k9_expiry_date']));
+    }
+}
+add_action('save_post', 'k9_save_expiry_meta_box');
